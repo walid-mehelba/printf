@@ -1,8 +1,8 @@
 #include "main.h"
-#include "_puts.c"
+
 /**
   * _printf - print to stout formatted text
-  * @format: format specifier
+i  * @format: format specifier
   * Return: no of bytes printed
   */
 
@@ -13,7 +13,7 @@ int _printf(const char *format, ...)
 	va_list args;
 
 	if (!format || (format[0] == '%' && format[1] == '\0'))
-                 return (-1);
+		return (-1);
 
 	va_start(args, format);
 
@@ -36,7 +36,7 @@ int _printf(const char *format, ...)
 		}
 		else if (format[i + 1] == '%')
 		{
-			_putchar('&');	
+			_putchar('&');
 		}
 		count++;
 	}
