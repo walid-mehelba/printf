@@ -1,66 +1,45 @@
 #include "main.h"
 
-void printing_buff(char buff[], int *buff1);
-
 /**
- * _printf - Printf function
- * @format: format.
- * Return: Printed chars.
- */
+  * _printf - print to stout formatted text
+  * @format: format specifier
+  * Return: no of bytes printed
+  */
+
 int _printf(const char *format, ...)
 {
-	int i, print = 0, print_charecters = 0;
-	int flag, width, percentage, size, buff1 = 0;
-	va_list list;
-	char buff[BUFF_SIZE];
+	unsigned int i, s_cout, count = 0;
 
-	if (format == NULL)
-		return (-1);
+	va_list args;
 
-	va_start(list, format);
+	if (!format || (format[0] == '%' && format[1] == '\0'))
+                 return (-1);
 
-	for (i = 0; format && format[i] != '\0'; i++)
+	va_start(args, format);
+
+	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] != '%')
 		{
-			buff[buff1++] = format[i];
-			if (buff1 == BUFF_SIZE)
-				printing_buff(buff, &buff1);
-			/* write(1, &format[i], 1);*/
-			print_charecters++;
+			_putchar(format[i]);
 		}
-		else
+		else if (format[i + 1] == 'c')
 		{
-			printing_buff(buff, &buff1);
-			flag = get_flags(format, &i);
-			width = get_width(format, &i, list);
-			percentage = get_precision(format, &i, list);
-			size = get_size(format, &i);
-			++i;
-			print = handle_print(format, &i, list, buff,
-				flag, width, precision, size);
-			if (print == -1)
-				return (-1);
-			print_charecters += print;
+			_putchar(va_arg(args, int));
+			i++;
 		}
+		else if (format[i + 1] == 's')
+		{
+			s_count = _puts(va_arg(args, char));
+			i++;
+			count += (s_count - 1);
+		}
+		else if (format[i + 1] == '%')
+		{
+			_putchar('&');	
+		}
+		count++;
 	}
-
-	printing_buff(buff, &buff1);
-
-	va_end(list);
-
-	return (print_charecters);
-}
-
-/**
- * printing_buff - Prints the contents of the buff if it exist
- * @buff: Array of chars
- * @buff1: Index at which to add next char, represents the length.
- */
-void printing_buff(char buff[], int *buff1)
-{
-	if (*buff1 > 0)
-		write(1, &buff[0], *buff1);
-
-	*buff1 = 0;
+	va_end(args);
+	return (count);
 }
