@@ -8,7 +8,7 @@
 
 int _printf(const char *format, ...)
 {
-	unsigned int i, s_cout, count = 0;
+	unsigned int i, s_count, count = 0;
 
 	va_list args;
 
@@ -30,7 +30,7 @@ int _printf(const char *format, ...)
 		}
 		else if (format[i + 1] == 's')
 		{
-			s_count = _puts(va_arg(args, char));
+			s_count = _puts(va_arg(args, char *));
 			i++;
 			count += (s_count - 1);
 		}
