@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include "_puts.c"
 /**
   * _printf - print to stout formatted text
   * @format: format specifier
